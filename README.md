@@ -32,3 +32,55 @@ As métricas pedidas na atividade foram: Acurácia, Precisão, Recall e F1-Score
 - Precision: 0.0514, ou 5,14%
 - Recall: 0.2079, ou 20,79%
 - F1-Score: 0.0824, ou 8,24%
+
+
+### Parte B
+O notebook da parte B corresponde a aplicação de Word2Vec e visualização através do Embedding Projector
+
+#### Pré-processamento
+Antes de configurar e treinar o modelo, o grupo fez um pré-processamento do dataset, separando as colunas de pergunta e intenção e transformando em LabelEncoder. Após este processo, o dataset foi dividido em 2, sendo 80% dele para treinamento e os outros 20% para testes.
+
+#### Treinamento do Modelo
+
+**Entrada**
+*sentences*: lista de sentenças de texto;
+*model*: modelo Word2Vec treinado;
+*embedding_size*: dimensão dos vetores de embedding configurado com tamanho 100.
+
+**Processamento**
+Dentro da função desta finalidade, foi criada uma variável que recebe uma lista vazia, a qual será usada para armazenar os outputs do modelo treinado, o qual itera da seguinte forma:
+- um loop que percorre cada sentença na lista de sentenças de texto e divide a sentença em palavras;
+- para cada palavra na lista de palavras, é feita uma verificação para se a palavra está no vocabulário do modelo e obtém o seu vetor de embedding. Caso não esteja, utiliza um vetor de zeros com a dimensão embedding_size;
+- calcula a média dos vetores de embedding das palavras na sentença. Caso o vetor não tenha palavras no vocabulário, a média é um vetor de zeros;
+- adiciona um vetor de embeddings na lista vecs.
+
+**Saída**
+Um array NumPy qye contém os vetores de embedding de todas as sentenças.
+
+
+**Treinamento do Modelo Word2Vec**
+Para o treinamento do modelo, foram utilizadas as seguintes configurações:
+- **embedding_size:** para definir que a dimensão dos vetores deve ser igual a 100;
+- **word2vec_model:** para treinar um modelo Word2Vec usando as sentenças em X_train;
+- **sentences:** para dividir cada linha em X_train em palavras para formar as sentenças de treinamento;
+- **vector_size:** para definir a dimensão dos vetores de embedding, tal qual o embedding_size;
+- **window:** para definir o tamanho da janela de contexto para o treinamento do modelo Word2Vec;
+- **min_count:** para definir o número mínimo de ocorrências de cada palavra a ser incluída no vocabulário;
+- **workers:** para definir o número de threads para o treinamento.
+
+**Transformação das Sentenças em Vetores**
+Estruturada em duas linhas para realizar a transformação das sentenças em vetores usando o modelo Word2Vec treinado e a função *send_to_vec* para X_train e para X_test
+
+
+#### Treinamento do Classificador
+Nesta etapa, foi feita uma função softmax para o treinamento do classificador de regressão logística com o modelo Word2Vec. Para isso, foi feito:
+- **Normalização dos dados com Softmax**
+- **Definição dos base learners**
+- **Definição do meta learner**
+- **Definição do StackingClassifier**
+- **Pipeline para treinar o StackingClassifier**
+- **Treinamento do modelo Stacking** e
+- **Avaliação do modelo com as métricas de avaliação: precision, recall, f1-score e support**
+
+#### Visualização do Word2Vec com PCA
+Para visualizar a distribuição dos vetores, foi feito um gráfico de dispersão para entender como ficou distribuída a dimensionalidade dos vetores.
