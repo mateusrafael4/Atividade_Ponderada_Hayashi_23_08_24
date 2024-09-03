@@ -33,6 +33,9 @@ As métricas pedidas na atividade foram: Acurácia, Precisão, Recall e F1-Score
 - Recall: 0.2079, ou 20,79%
 - F1-Score: 0.0824, ou 8,24%
 
+### Tensorboard
+
+![tensorboard](tensorboard.png)
 
 ### Parte B
 O notebook da parte B corresponde a aplicação de Word2Vec e visualização através do Embedding Projector
